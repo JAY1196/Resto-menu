@@ -4,6 +4,10 @@ import ItemCard from './ItemCard'
 import CategoriesPage from './CategoriesPage'
 import ProductDetailPage from './ProductDetailPage'
 import { useCart } from '../context/CartContext'
+import Header from './Header'
+import { triggerCartAnimation } from '../utils/animations'
+
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80'
 
 /* ── Banners ──────────────────────────────────────────────────── */
 const BANNERS = [
@@ -75,7 +79,13 @@ function DishCard({ item, onView }) {
   return (
     <div className="dish-card" onClick={() => onView(item)}>
       <div className="dish-card-img-wrap">
-        <img src={item.image} alt={item.name} className="dish-card-img" loading="lazy" />
+        <img 
+          src={item.image} 
+          alt={item.name} 
+          className="dish-card-img" 
+          loading="lazy"
+          onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMG }}
+        />
         {item.badge && (
           <span className="dish-card-badge">{item.badge}</span>
         )}
@@ -86,7 +96,7 @@ function DishCard({ item, onView }) {
         <div className="flex items-center justify-between mt-2">
           <span className="dish-card-price">₹{item.price}</span>
           <button
-            onClick={(e) => { e.stopPropagation(); addItem(item) }}
+            onClick={(e) => { e.stopPropagation(); triggerCartAnimation(e); addItem(item) }}
             className={`dish-add-btn ${qty > 0 ? 'dish-add-btn--added' : ''}`}
             aria-label={`Add ${item.name}`}
           >
@@ -154,7 +164,10 @@ export default function Menu({ onCartOpen }) {
       if (!c) return
       const slides = c.querySelectorAll('[data-banner-slide]')
       const next = (bannerIndex + 1) % slides.length
-      slides[next]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      const nextSlide = slides[next]
+      if (nextSlide) {
+        c.scrollTo({ left: nextSlide.offsetLeft, behavior: 'smooth' })
+      }
     }, 4000)
     return () => clearInterval(id)
   }, [bannerIndex])
@@ -162,7 +175,10 @@ export default function Menu({ onCartOpen }) {
   const goToSlide = useCallback(idx => {
     const c = carouselRef.current
     if (!c) return
-    c.querySelectorAll('[data-banner-slide]')[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    const slide = c.querySelectorAll('[data-banner-slide]')[idx]
+    if (slide) {
+      c.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' })
+    }
   }, [])
 
   const onMouseDown = e => {
@@ -183,8 +199,16 @@ export default function Menu({ onCartOpen }) {
   useEffect(() => {
     const c = pillsRef.current
     if (!c) return
-    c.querySelector('[data-active="true"]')?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    const activePill = c.querySelector('[data-active="true"]')
+    if (activePill) {
+      c.scrollTo({ left: activePill.offsetLeft - 16, behavior: 'smooth' })
+    }
   }, [activeCategory])
+
+  /* ── Scroll reset on navigation ─────────────────────────────── */
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [activeTab, selectedItem, activeCategory])
 
   /* ── Filtered items for menu tab ───────────────────────────── */
   const filteredItems = searchQuery.trim()
@@ -233,6 +257,7 @@ export default function Menu({ onCartOpen }) {
 
   return (
     <div className="app-shell">
+      {activeTab === 'home' && !selectedItem && <Header />}
       <main className="app-scroll-area">
         <div className="max-w-2xl mx-auto px-4 pt-4 pb-28">
 
@@ -272,7 +297,7 @@ export default function Menu({ onCartOpen }) {
               </p>
               <div className="flex flex-col gap-3">
                 {filteredItems.map(item => (
-                  <PopularCard key={item.id} item={item} onAddToCart={() => addItem(item)} onView={() => openItem(item)} />
+                  <PopularCard key={item.id} item={item} onAddToCart={(e) => { triggerCartAnimation(e); addItem(item) }} onView={() => openItem(item)} />
                 ))}
                 {filteredItems.length === 0 && (
                   <div className="py-12 text-center text-zinc-500 text-sm">No items match your search</div>
@@ -309,7 +334,10 @@ export default function Menu({ onCartOpen }) {
                             <p className="banner-subtitle">{b.subtitle}</p>
                             <button
                               className="banner-btn"
-                              onClick={() => { const item = MENU_ITEMS.find(m => m.id === b.itemId); if (item) addItem(item) }}
+                              onClick={(e) => { 
+                                const item = MENU_ITEMS.find(m => m.id === b.itemId); 
+                                if (item) { triggerCartAnimation(e); addItem(item) } 
+                              }}
                             >{b.cta}</button>
                           </div>
                           <div className="banner-img-wrap">
@@ -524,12 +552,18 @@ function PopularCard({ item, onAddToCart, onView }) {
 
   return (
     <div className="popular-card" onClick={onView} style={{ cursor: 'pointer' }}>
-      <img src={item.image} alt={item.name} className="popular-card-img" loading="lazy" />
+      <img 
+        src={item.image} 
+        alt={item.name} 
+        className="popular-card-img" 
+        loading="lazy" 
+        onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMG }}
+      />
       <div className="popular-card-body">
         <div className="flex items-start justify-between gap-2">
           <p className="popular-card-name">{item.name}</p>
           <button
-            onClick={e => { e.stopPropagation(); onAddToCart() }}
+            onClick={e => { e.stopPropagation(); onAddToCart(e) }}
             className={`popular-add-btn ${qty > 0 ? 'popular-add-btn--added' : ''}`}
             aria-label={`Add ${item.name}`}
           >

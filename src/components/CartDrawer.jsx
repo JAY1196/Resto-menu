@@ -90,20 +90,21 @@ export default function CartDrawer({ isOpen, onClose, onOrderPlaced }) {
     setTable(localTable)
 
     const message = buildWhatsAppMessage({ items, tableNumber: localTable, totalPrice, instructions })
-    whatsappUrlRef.current = buildWhatsAppUrl(message)
+    const url = buildWhatsAppUrl(message)
+    whatsappUrlRef.current = url
+
+    window.open(url, '_blank') // Open immediately to bypass popup blocker
 
     setShowSuccess(true)  // mount full-screen overlay
   }, [items, showSuccess, localTable, totalPrice, instructions, setTable])
 
   /* Called by SuccessScreen after its 1800ms animation completes */
   const handleSuccessComplete = useCallback(() => {
-    const url = whatsappUrlRef.current
     clearCart()
     setInstructions('')
     setShowSuccess(false)
     onOrderPlaced()   // dismiss any toast in parent
     onClose()
-    window.open(url, '_blank')
   }, [clearCart, onOrderPlaced, onClose])
 
   /* ── Call Waiter ────────────────────────────────────────────── */

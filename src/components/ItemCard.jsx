@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext'
+import { triggerCartAnimation } from '../utils/animations'
 
 const VEG_DOT = (
   <span className="inline-flex items-center justify-center w-4 h-4 border border-green-500 rounded-sm flex-shrink-0">
@@ -40,6 +41,7 @@ export default function ItemCard({ item }) {
           alt={item.name}
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80' }}
           className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
@@ -72,7 +74,7 @@ export default function ItemCard({ item }) {
           {/* Add / Quantity control */}
           {qty === 0 ? (
             <button
-              onClick={() => addItem(item)}
+              onClick={(e) => { triggerCartAnimation(e); addItem(item) }}
               className="flex items-center gap-1 bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-none border-2 border-transparent transition-all duration-150 active:translate-x-1 active:translate-y-1 shadow-[4px_4px_0px_0px_#991b1b] active:shadow-none"
             >
               <span className="text-base leading-none">+</span> ADD
@@ -87,7 +89,7 @@ export default function ItemCard({ item }) {
               </button>
               <span className="text-white font-bold text-sm w-4 text-center">{qty}</span>
               <button
-                onClick={() => addItem(item)}
+                onClick={(e) => { triggerCartAnimation(e); addItem(item) }}
                 className="qty-btn bg-brand-500 hover:bg-brand-400 w-7 h-7 rounded-none"
               >
                 +

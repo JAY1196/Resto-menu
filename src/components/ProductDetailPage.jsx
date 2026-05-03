@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { MENU_ITEMS } from '../data/menuData'
+import { triggerCartAnimation } from '../utils/animations'
 
 const BADGE_STYLES = {
   "Chef's Pick": 'bg-amber-500/20 text-amber-400 border-amber-500/30',
@@ -33,14 +34,20 @@ function SimilarCard({ item, onView }) {
       onClick={() => onView(item)}
     >
       <div className="similar-card-img-wrap">
-        <img src={item.image} alt={item.name} className="similar-card-img" loading="lazy" />
+        <img 
+          src={item.image} 
+          alt={item.name} 
+          className="similar-card-img" 
+          loading="lazy" 
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80' }}
+        />
       </div>
       <div className="similar-card-body">
         <p className="similar-card-name">{item.name}</p>
         <div className="flex items-center justify-between mt-1">
           <span className="similar-card-price">₹{item.price}</span>
           <button
-            onClick={(e) => { e.stopPropagation(); addItem(item) }}
+            onClick={(e) => { e.stopPropagation(); triggerCartAnimation(e); addItem(item) }}
             className={`similar-add-btn ${qty > 0 ? 'similar-add-btn--added' : ''}`}
           >
             {qty > 0 ? qty : '+'}
@@ -56,7 +63,8 @@ export default function ProductDetailPage({ item, onBack }) {
   const [qty, setQty] = useState(1)
   const cartQty = qtyOf(item.id)
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    triggerCartAnimation(e)
     for (let i = 0; i < qty; i++) addItem(item)
   }
 
@@ -77,7 +85,12 @@ export default function ProductDetailPage({ item, onBack }) {
     <div className="product-page">
       {/* Hero image */}
       <div className="product-hero">
-        <img src={item.image} alt={item.name} className="product-hero-img" />
+        <img 
+          src={item.image} 
+          alt={item.name} 
+          className="product-hero-img" 
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80' }}
+        />
         {/* Gradient overlay */}
         <div className="product-hero-overlay" />
         {/* Back button */}

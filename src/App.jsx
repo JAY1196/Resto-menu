@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { CartProvider } from './context/CartContext'
-import Header       from './components/Header'
+import Header       from './components/Header' // leaving import but removed usage just in case or we can delete it
+
 import Menu         from './components/Menu'
 import CartDrawer   from './components/CartDrawer'
 import Toast        from './components/Toast'
@@ -34,7 +35,6 @@ export default function App() {
 
   return (
     <CartProvider initialTable={getInitialTable()}>
-      <Header />
       <Menu onCartOpen={openCart} />
       <CartDrawer isOpen={cartOpen} onClose={closeCart} onOrderPlaced={handleOrderPlaced} />
       <Toast message="Order Sent! 🎉" isVisible={toastVisible} onHide={() => setToastVisible(false)} />
