@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,7 +15,7 @@
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Karla', system-ui, sans-serif;
     background-color: #0a0908;
     color: #f8f7f4;
     min-height: 100dvh;
@@ -45,15 +46,14 @@
 @layer components {
   /* Glass card */
   .glass {
-    background: rgba(39, 35, 31, 0.65);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #18181b;
+    border: 2px solid #3f3a35;
+    box-shadow: 4px 4px 0px 0px #dc2626;
   }
 
   /* Brand gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #a16207 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -61,12 +61,13 @@
 
   /* Category pill – active / inactive */
   .category-pill {
-    @apply px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer select-none;
+    @apply px-5 py-2.5 rounded-none border-2 border-[#3f3a35] text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer select-none;
   }
 
   .category-pill.active {
-    background: linear-gradient(135deg, #f97316, #fb923c);
-    @apply text-white shadow-lg shadow-orange-500/30;
+    background: #dc2626;
+    @apply text-white border-transparent;
+    box-shadow: 4px 4px 0px 0px #991b1b;
   }
 
   .category-pill.inactive {
@@ -86,10 +87,13 @@
 
   /* Primary CTA */
   .btn-primary {
-    background: linear-gradient(135deg, #f97316, #fb923c);
-    @apply text-white font-semibold rounded-2xl py-4 px-6 w-full text-center
-           transition-all duration-200 active:scale-95 shadow-lg shadow-orange-500/30
-           hover:shadow-orange-500/50 hover:brightness-105;
+    background: #dc2626;
+    @apply text-white font-semibold rounded-none border-2 border-transparent py-4 px-6 w-full text-center
+           transition-all duration-200 active:translate-y-1 active:translate-x-1;
+    box-shadow: 4px 4px 0px 0px #991b1b;
+  }
+  .btn-primary:active {
+    box-shadow: 0px 0px 0px 0px #991b1b;
   }
 
   /* Input field */
@@ -127,7 +131,7 @@
     transform: translate(-50%, -60%);
     width: 360px;
     height: 360px;
-    border-radius: 50%;
+    border-radius: 0;
     background: radial-gradient(circle, rgba(249,115,22,0.22) 0%, transparent 70%);
     pointer-events: none;
     animation: splashGlowPulse 2s ease-in-out infinite;
@@ -167,8 +171,8 @@
   .splash-icon-ring {
     position: absolute;
     inset: -8px;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, #f97316, #fbbf24, #f97316);
+    border-radius: 0;
+    background: conic-gradient(from 0deg, #dc2626, #a16207, #dc2626);
     opacity: 0.25;
     animation: spinSlow 4s linear infinite;
   }
@@ -182,7 +186,7 @@
     width: 96px;
     height: 96px;
     border-radius: 28px;
-    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #f87171 50%, #a16207 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,7 +205,7 @@
   }
 
   .splash-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display SC', serif;
     font-size: 2.2rem;
     font-weight: 700;
     color: #ffffff;
@@ -229,7 +233,7 @@
   .splash-dot {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
+    border-radius: 0;
     background: rgba(249,115,22,0.6);
     animation: splashDotBounce 1.2s ease-in-out infinite;
   }
@@ -261,7 +265,7 @@
 
   /* Gradient text for home heading */
   .home-gradient-text {
-    background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #a16207 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -291,7 +295,7 @@
     outline: none;
     color: #f4f4f5;
     font-size: 0.875rem;
-    caret-color: #f97316;
+    caret-color: #dc2626;
   }
 
   .search-input::placeholder { color: #52525b; }
@@ -301,7 +305,7 @@
     height: 30px;
     border-radius: 10px;
     background: rgba(249,115,22,0.12);
-    color: #f97316;
+    color: #dc2626;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -329,7 +333,7 @@
   .section-link {
     font-size: 0.75rem;
     font-weight: 600;
-    color: #f97316;
+    color: #dc2626;
     transition: opacity 0.15s;
   }
 
@@ -388,7 +392,7 @@
   /* Keep all inner banner parts unchanged */
   .banner-circle {
     position: absolute;
-    border-radius: 50%;
+    border-radius: 0;
     background: rgba(255,255,255,0.1);
     pointer-events: none;
   }
@@ -444,12 +448,12 @@
     display: inline-flex;
     align-items: center;
     background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(8px);
+    
     color: white;
     font-size: 0.78rem;
     font-weight: 700;
     padding: 7px 16px;
-    border-radius: 999px;
+    border-radius: 0;
     border: 1px solid rgba(255,255,255,0.3);
     transition: background 0.2s, transform 0.15s;
     width: fit-content;
@@ -478,14 +482,14 @@
   .carousel-dot {
     width: 6px;
     height: 6px;
-    border-radius: 999px;
+    border-radius: 0;
     background: #3f3f46;
     transition: width 0.3s, background 0.3s;
   }
 
   .carousel-dot--active {
     width: 20px;
-    background: #f97316;
+    background: #dc2626;
   }
 
   /* ── Category chips (compact circular) ──────────────────────── */
@@ -522,7 +526,7 @@
   .cat-chip-icon {
     width: 56px;
     height: 56px;
-    border-radius: 50%;
+    border-radius: 0;
     background: #1c1c1e;
     border: 1.5px solid rgba(255,255,255,0.06);
     display: flex;
@@ -531,9 +535,9 @@
     transition: background 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   }
 
-  /* Active icon: orange fill + glow ring */
+  /* Active icon: red fill + glow ring */
   .cat-chip-icon--active {
-    background: #f97316;
+    background: #dc2626;
     border-color: transparent;
     box-shadow:
       0 0 0 3px rgba(249,115,22,0.25),
@@ -545,7 +549,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 0;
     transition: filter 0.2s;
   }
 
@@ -564,7 +568,7 @@
   }
 
   .cat-chip-label--active {
-    color: #f97316;
+    color: #dc2626;
     font-weight: 700;
   }
 
@@ -585,13 +589,17 @@
   .dish-card {
     flex: 0 0 150px;
     background: #18181b;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 18px;
+    border: 2px solid #3f3a35;
+    border-radius: 0;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: 4px 4px 0px 0px #dc2626;
     transition: transform 0.18s ease, box-shadow 0.2s ease;
   }
-  .dish-card:active { transform: scale(0.96); }
+  .dish-card:active { 
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #dc2626;
+  }
 
   .dish-card-img-wrap {
     position: relative;
@@ -615,7 +623,7 @@
     font-size: 9px;
     font-weight: 700;
     padding: 2px 7px;
-    border-radius: 999px;
+    border-radius: 0;
     background: rgba(249,115,22,0.85);
     color: white;
     letter-spacing: 0.03em;
@@ -640,7 +648,7 @@
   .dish-card-price {
     font-size: 0.88rem;
     font-weight: 800;
-    color: #f97316;
+    color: #dc2626;
   }
 
   .dish-add-btn {
@@ -648,7 +656,7 @@
     height: 26px;
     border-radius: 8px;
     background: rgba(249,115,22,0.15);
-    color: #f97316;
+    color: #dc2626;
     font-size: 1rem;
     font-weight: 700;
     display: flex;
@@ -658,7 +666,7 @@
   }
   .dish-add-btn:active { transform: scale(0.85); }
   .dish-add-btn--added {
-    background: #f97316;
+    background: #dc2626;
     color: white;
     font-size: 0.72rem;
   }
@@ -677,7 +685,7 @@
     top: 0;
     z-index: 20;
     background: rgba(9,9,11,0.92);
-    backdrop-filter: blur(16px);
+    
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
@@ -713,14 +721,18 @@
   .cat-card {
     position: relative;
     background: #18181b;
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 20px;
+    border: 2px solid #3f3a35;
+    border-radius: 0;
     overflow: hidden;
     cursor: pointer;
     text-align: left;
+    box-shadow: 4px 4px 0px 0px #dc2626;
     transition: transform 0.18s ease, box-shadow 0.2s ease;
   }
-  .cat-card:active { transform: scale(0.97); }
+  .cat-card:active { 
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #dc2626;
+  }
 
   .cat-card-heart {
     position: absolute;
@@ -729,7 +741,7 @@
     z-index: 5;
     width: 30px;
     height: 30px;
-    border-radius: 50%;
+    border-radius: 0;
     background: rgba(0,0,0,0.45);
     display: flex;
     align-items: center;
@@ -776,7 +788,7 @@
     width: 26px;
     height: 26px;
     border-radius: 8px;
-    background: #f97316;
+    background: #dc2626;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -823,7 +835,7 @@
     height: 38px;
     border-radius: 12px;
     background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(8px);
+    
     color: white;
     display: flex;
     align-items: center;
@@ -840,7 +852,7 @@
     font-size: 0.68rem;
     font-weight: 700;
     padding: 4px 10px;
-    border-radius: 999px;
+    border-radius: 0;
     border-width: 1px;
     border-style: solid;
   }
@@ -862,7 +874,7 @@
   .product-price {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #f97316;
+    color: #dc2626;
   }
 
   /* Similar items row */
@@ -922,7 +934,7 @@
   .similar-card-price {
     font-size: 0.82rem;
     font-weight: 800;
-    color: #f97316;
+    color: #dc2626;
   }
 
   .similar-add-btn {
@@ -930,7 +942,7 @@
     height: 24px;
     border-radius: 7px;
     background: rgba(249,115,22,0.15);
-    color: #f97316;
+    color: #dc2626;
     font-size: 0.95rem;
     font-weight: 700;
     display: flex;
@@ -939,7 +951,7 @@
     transition: background 0.2s, transform 0.15s;
   }
   .similar-add-btn:active { transform: scale(0.85); }
-  .similar-add-btn--added { background: #f97316; color: white; font-size: 0.65rem; }
+  .similar-add-btn--added { background: #dc2626; color: white; font-size: 0.65rem; }
 
   /* Sticky add-to-cart bar */
   .product-sticky-bar {
@@ -950,7 +962,7 @@
     z-index: 50;
     padding: 12px 16px;
     background: rgba(9,9,11,0.96);
-    backdrop-filter: blur(20px);
+    
     border-top: 1px solid rgba(255,255,255,0.07);
   }
 
@@ -967,12 +979,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #f97316, #fb923c);
+    background: linear-gradient(135deg, #dc2626, #f87171);
     color: white;
     font-size: 0.9rem;
     font-weight: 700;
     padding: 14px 28px;
-    border-radius: 999px;
+    border-radius: 0;
     box-shadow: 0 8px 24px rgba(249,115,22,0.35);
     transition: transform 0.15s, box-shadow 0.2s;
   }
@@ -1031,7 +1043,7 @@
   .popular-card-price {
     font-size: 0.9rem;
     font-weight: 800;
-    color: #f97316;
+    color: #dc2626;
   }
 
   .popular-add-btn {
@@ -1039,7 +1051,7 @@
     height: 32px;
     border-radius: 10px;
     background: rgba(249,115,22,0.15);
-    color: #f97316;
+    color: #dc2626;
     font-size: 1.1rem;
     font-weight: 700;
     display: flex;
@@ -1052,7 +1064,7 @@
   .popular-add-btn:active { transform: scale(0.88); }
 
   .popular-add-btn--added {
-    background: #f97316;
+    background: #dc2626;
     color: white;
     font-size: 0.8rem;
   }
@@ -1070,10 +1082,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #f97316, #fbbf24);
+    background: linear-gradient(135deg, #dc2626, #a16207);
     color: white;
     padding: 14px 20px;
-    border-radius: 999px;
+    border-radius: 0;
     box-shadow: 0 8px 28px rgba(249,115,22,0.45);
     font-weight: 700;
     font-size: 0.875rem;
@@ -1086,10 +1098,10 @@
     width: 18px;
     height: 18px;
     background: white;
-    color: #f97316;
+    color: #dc2626;
     font-size: 0.6rem;
     font-weight: 800;
-    border-radius: 50%;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1105,8 +1117,6 @@
     max-width: 42rem;
     margin: 0 auto;
     background: rgba(9,9,11,0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255,255,255,0.06);
     display: flex;
     align-items: stretch;
@@ -1127,7 +1137,7 @@
   }
 
   .bottom-nav-tab--active {
-    color: #f97316;
+    color: #dc2626;
   }
 
   .bottom-nav-label {
@@ -1144,11 +1154,11 @@
     min-width: 16px;
     height: 16px;
     padding: 0 4px;
-    background: #f97316;
+    background: #dc2626;
     color: white;
     font-size: 0.58rem;
     font-weight: 800;
-    border-radius: 999px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1181,7 +1191,7 @@
     transform: translateX(-50%);
     width: 480px;
     height: 480px;
-    border-radius: 50%;
+    border-radius: 0;
     background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -1193,7 +1203,7 @@
     transform: translateX(-50%);
     width: 320px;
     height: 320px;
-    border-radius: 50%;
+    border-radius: 0;
     background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -1230,7 +1240,7 @@
   .success-ring {
     position: absolute;
     inset: 0;
-    border-radius: 50%;
+    border-radius: 0;
     border: 2px solid rgba(59, 130, 246, 0.5);
     animation: pulseRing 1.5s cubic-bezier(0.215,0.61,0.355,1) infinite;
   }
@@ -1246,7 +1256,7 @@
     position: relative;
     width: 112px;
     height: 112px;
-    border-radius: 50%;
+    border-radius: 0;
     background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #1e40af 100%);
     box-shadow:
       0 0 0 8px rgba(37, 99, 235, 0.15),
@@ -1263,7 +1273,7 @@
   .success-circle-glow {
     position: absolute;
     inset: 0;
-    border-radius: 50%;
+    border-radius: 0;
     background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.25) 0%, transparent 60%);
     pointer-events: none;
   }
@@ -1294,7 +1304,7 @@
   }
 
   .success-heading {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display SC', serif;
     font-size: 2rem;
     font-weight: 700;
     color: #ffffff;

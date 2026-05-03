@@ -29,7 +29,7 @@ export default function ItemCard({ item }) {
   const qty = qtyOf(item.id)
 
   return (
-    <div className="glass rounded-2xl overflow-hidden flex flex-col group transition-all duration-300 hover:border-brand-500/30 hover:shadow-xl hover:shadow-brand-500/10 hover:-translate-y-0.5">
+    <div className="glass rounded-none overflow-hidden flex flex-col group transition-all duration-300 hover:border-brand-500/30 hover:translate-x-1 hover:translate-y-1">
       {/* Image */}
       <div className="relative h-44 w-full overflow-hidden bg-dark-800">
         {!imgLoaded && (
@@ -47,7 +47,7 @@ export default function ItemCard({ item }) {
         {/* Badge */}
         {item.badge && (
           <span
-            className={`absolute top-2.5 left-2.5 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${BADGE_STYLES[item.badge] ?? 'bg-dark-700 text-dark-200 border-dark-600'}`}
+            className={`absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-none border-2 border-[#3f3a35] ${BADGE_STYLES[item.badge] ?? 'bg-dark-700 text-dark-200'} shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}
           >
             {item.badge}
           </span>
@@ -73,22 +73,22 @@ export default function ItemCard({ item }) {
           {qty === 0 ? (
             <button
               onClick={() => addItem(item)}
-              className="flex items-center gap-1 bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2 rounded-full transition-all duration-150 active:scale-90 shadow-md shadow-brand-500/30"
+              className="flex items-center gap-1 bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-none border-2 border-transparent transition-all duration-150 active:translate-x-1 active:translate-y-1 shadow-[4px_4px_0px_0px_#991b1b] active:shadow-none"
             >
               <span className="text-base leading-none">+</span> ADD
             </button>
           ) : (
-            <div className="flex items-center gap-2 bg-dark-800 rounded-full px-1 py-1 border border-brand-500/40 animate-bounce-in">
+            <div className="flex items-center gap-2 bg-dark-800 rounded-none px-1 py-1 border-2 border-brand-500/40 animate-bounce-in shadow-[4px_4px_0px_0px_#991b1b]">
               <button
                 onClick={() => removeItem(item.id)}
-                className="qty-btn bg-dark-700 hover:bg-dark-600 w-7 h-7"
+                className="qty-btn bg-dark-700 hover:bg-dark-600 w-7 h-7 rounded-none"
               >
                 −
               </button>
               <span className="text-white font-bold text-sm w-4 text-center">{qty}</span>
               <button
                 onClick={() => addItem(item)}
-                className="qty-btn bg-brand-500 hover:bg-brand-400 w-7 h-7"
+                className="qty-btn bg-brand-500 hover:bg-brand-400 w-7 h-7 rounded-none"
               >
                 +
               </button>
