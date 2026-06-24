@@ -2,7 +2,7 @@
 
 A premium, mobile-first React app that lets restaurant customers **scan a QR code → browse the menu → place an order via WhatsApp** in seconds.
 
----
+------
 
 ## Tech Stack
 
